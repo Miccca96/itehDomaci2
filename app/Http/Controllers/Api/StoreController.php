@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StoreResource;
 use App\Models\Store;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $stores = Store::all();
+
+        return response()->json(StoreResource::collection($stores), 200);
     }
 
     /**
@@ -26,7 +29,9 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = Store::create($request->all());
+
+        return response()->json(new StoreResource($store), 200);
     }
 
     /**
@@ -37,7 +42,7 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        //
+        return response()->json(new StoreResource($store), 200);
     }
 
     /**
@@ -49,7 +54,8 @@ class StoreController extends Controller
      */
     public function update(Request $request, Store $store)
     {
-        //
+        $store->update($request->all());
+        return response()->json(new StoreResource($store), 200);
     }
 
     /**
@@ -60,6 +66,13 @@ class StoreController extends Controller
      */
     public function destroy(Store $store)
     {
-        //
+        try {
+            $store->delete();
+            return response()->noContent();
+        } catch (\Throwable $th) {
+            return response()->json([
+                "error" => "Cannot delete store. Check if store has items and delete them first"
+            ], 500);
+        }
     }
 }

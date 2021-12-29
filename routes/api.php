@@ -29,6 +29,6 @@ Route::post('/login', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::apiResource('item', ItemController::class);
-    Route::apiResource('store', StoreController::class);
+    Route::apiResource('items', ItemController::class);
+    Route::apiResource('stores', StoreController::class);
 });
