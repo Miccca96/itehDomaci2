@@ -9,5 +9,10 @@ class Store extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'contact_name', 'contact_email', 'address', 'city'];
+    protected $fillable = ['name', 'contact_name', 'contact_email', 'address', 'city', 'store_category_id'];
+
+    public function storeCategory()
+    {
+        return $this->belongsTo(StoreCategory::class);
+    }
 }
