@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\StoreCategory;
 use Illuminate\Database\Seeder;
 
 class StoreCategorySeeder extends Seeder
@@ -13,6 +14,6 @@ class StoreCategorySeeder extends Seeder
      */
     public function run()
     {
-        //
+        StoreCategory::factory(5)->create();
     }
 }
